@@ -6,7 +6,7 @@
 /*   By: ale-roux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 10:40:23 by ale-roux          #+#    #+#             */
-/*   Updated: 2022/11/15 14:29:59 by ale-roux         ###   ########.fr       */
+/*   Updated: 2022/11/15 14:31:41 by ale-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ int	ft_putunbr_fd(unsigned int n, int fd)
 	if (!num)
 		return (-1);
 	while (intlen > 0)
-    {
-        i = n % 10;
-        n = n / 10;
-        num[--intlen] = i + '0';
-    }
+	{
+		i = n % 10;
+		n = n / 10;
+		num[--intlen] = i + '0';
+	}
 	ret = write(fd, num, ft_strlen(num));
 	free(num);
 	return (ret);

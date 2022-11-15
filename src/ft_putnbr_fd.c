@@ -6,12 +6,22 @@
 /*   By: ale-roux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 10:40:23 by ale-roux          #+#    #+#             */
-/*   Updated: 2022/11/15 14:22:32 by ale-roux         ###   ########.fr       */
+/*   Updated: 2022/11/15 15:06:57 by ale-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/ft_printf.h"
 #include <stdio.h>
+
+static int	ft_putnbr_write(int n, int intlen, int start, char *num)
+{
+	while (intlen > start)
+	{
+		num[--intlen] = (n % 10) + '0';
+		n = n / 10;
+	}
+	return (write(1, num, ft_strlen(num)));
+}
 
 static int	ft_putnbr_intlen(long long int n)
 {
@@ -33,35 +43,28 @@ static int	ft_putnbr_intlen(long long int n)
 	return (i);
 }
 
-int	ft_putnbr_fd(int n, int fd)
+int	ft_putnbr_fd(int n)
 {
-	int		i;
 	char	*num;
 	int		intlen;
 	int		start;
 	int		ret;
 
 	if (n == -2147483648)
-        return (write(fd, "-2147483648", 11));
+		return (write(1, "-2147483648", 11));
 	intlen = ft_putnbr_intlen(n);
 	start = 0;
 	num = malloc((intlen + 1) * sizeof(char));
-	num[intlen] = '\0';
 	if (!num)
 		return (-1);
+	num[intlen] = '\0';
 	if (n < 0)
 	{
 		num[0] = '-';
 		n = -n;
 		start++;
 	}
-	while (intlen > start)
-    {
-        i = n % 10;
-        n = n / 10;
-        num[--intlen] = i + '0';
-    }
-	ret = write(fd, num, ft_strlen(num));
+	ret = ft_putnbr_write(n, intlen, start, num);
 	free(num);
 	return (ret);
 }
