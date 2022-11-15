@@ -6,7 +6,7 @@
 /*   By: ale-roux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 19:35:20 by ale-roux          #+#    #+#             */
-/*   Updated: 2022/11/15 01:10:53 by ale-roux         ###   ########.fr       */
+/*   Updated: 2022/11/15 14:30:25 by ale-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@ static int	ft_printf_handler(char c, va_list arg)
 {
 	int	len;
 
-	len = 1;
+	len = -1;
 	if (c == 'c')
 		len = ft_putchar_fd(va_arg(arg, int), 1);
 	else if (c == 's')
 		len = ft_putstr_fd(va_arg(arg, char *), 1);
 	else if (c == 'p')
-		len = 
+		len = ft_putptr_fd(va_arg(arg, unsigned long long), 1); 
 	else if (c == 'd' || c == 'i')
 		len = ft_putnbr_fd(va_arg(arg, int), 1);
 	else if (c == 'u')
-		len = ft_putunsint_fd(va_arg(arg, unsigned int), 1);
+		len = ft_putunbr_fd(va_arg(arg, unsigned int), 1);
 	else if (c == 'x')
-		len = savespace(va_arg(arg, unsigned int), 1);
+		len = ft_putnbr_hex_fd(va_arg(arg, unsigned int), 1);
 	else if (c == 'X')
-		len = savespace(va_arg(arg, unsigned int), 1);
+		len = ft_putnbr_hex_fd(va_arg(arg, unsigned int), 1);
 	else if (c == '%')
 		len = write(1, "%", 1);
 	return (len);
