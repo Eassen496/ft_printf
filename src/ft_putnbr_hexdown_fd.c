@@ -1,52 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putunbr_fd.c                                    :+:      :+:    :+:   */
+/*   ft_putnbr_hexdown_fd.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-roux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/01 10:40:23 by ale-roux          #+#    #+#             */
-/*   Updated: 2022/11/15 17:13:23 by ale-roux         ###   ########.fr       */
+/*   Created: 2022/11/14 23:19:00 by ale-roux          #+#    #+#             */
+/*   Updated: 2022/11/15 17:34:40 by ale-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/ft_printf.h"
-#include <stdio.h>
 
-static int	ft_putunbr_intlen(long long int n)
+static int	putnbr_hexdown_fd_len(unsigned int nbr)
 {
 	int	i;
 
 	i = 0;
-	if (n == 0)
-		return (1);
-	while (n > 0)
+	if (nbr == 0)
+		i++;
+	while (nbr > 0)
 	{
 		i++;
-		n = n / 10;
+		nbr = nbr / 16;
 	}
 	return (i);
 }
 
-int	ft_putunbr_fd(unsigned int n, int fd)
+int	ft_putnbr_hexdown_fd(unsigned int nbr, int fd)
 {
-	int		i;
-	char	*num;
-	int		intlen;
-	int		ret;
+	int		j;
+	char	*result;
+	int		len;
+	char	*base;
 
-	intlen = ft_putunbr_intlen(n);
-	num = malloc((intlen + 1) * sizeof(char));
-	if (!num)
+	base = "0123456789abcdef";
+	len = putnbr_hexdown_fd_len(nbr);
+	result = malloc((len + 1) * sizeof(char));
+	if (!result)
 		return (-1);
-	num[intlen] = '\0';
-	while (intlen > 0)
+	result[len] = '\0';
+	while (len > 0)
 	{
-		i = n % 10;
-		n = n / 10;
-		num[--intlen] = i + '0';
+		j = nbr % 16;
+		nbr = nbr / 16;
+		result[--len] = base[j];
 	}
-	ret = write(fd, num, ft_strlen(num));
-	free(num);
-	return (ret);
+	len = ft_strlen(result);
+	j = write(fd, result, len);
+	free(result);
+	return (j);
 }

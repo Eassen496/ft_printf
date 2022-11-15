@@ -6,13 +6,13 @@
 #    By: ale-roux <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/06 21:21:04 by ale-roux          #+#    #+#              #
-#    Updated: 2022/11/15 14:29:37 by ale-roux         ###   ########.fr        #
+#    Updated: 2022/11/15 17:24:47 by ale-roux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS	= ./src/ft_putchar_fd.c ./src/ft_putnbr_fd.c ./src/ft_putnbr_hex_fd.c \
+SRCS	= ./src/ft_putchar_fd.c ./src/ft_putnbr_fd.c ./src/ft_putnbr_hexup_fd.c \
 		  ./src/ft_putstr_fd.c ./src/ft_putunbr_fd.c ./src/ft_strlen.c \
-		  ft_printf.c ./src/ft_putptr_fd.c
+		  ft_printf.c ./src/ft_putptr_fd.c ./src/ft_putnbr_hexdown_fd.c
 NAME	= libftprintf.a
 OBJS	=  ${SRCS:.c=.o}
 
