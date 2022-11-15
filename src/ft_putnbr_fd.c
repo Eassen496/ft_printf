@@ -6,64 +6,62 @@
 /*   By: ale-roux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 10:40:23 by ale-roux          #+#    #+#             */
-/*   Updated: 2022/11/15 00:43:49 by ale-roux         ###   ########.fr       */
+/*   Updated: 2022/11/15 14:22:32 by ale-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/ft_printf.h"
+#include <stdio.h>
 
-static int	int_to_char(int n, int fd)
+static int	ft_putnbr_intlen(long long int n)
 {
-	char	c;
+	int	i;
 
-	if (n < 10 && n >= 0)
+	i = 0;
+	if (n == 0)
+		return (1);
+	else if (n < 0)
 	{
-		c = 48 + n;
+		i++;
+		n = -n;
 	}
-	return (write(fd, &c, 1));
-}
-
-static int	printverif(int nb, int supposedlen)
-{
-	int	ret;
-
-	ret = 0;
-	while (nb > 0)
+	while (n > 0)
 	{
-		nb /= 10;
-		ret++;
+		i++;
+		n = n / 10;
 	}
-	if (ret == supposedlen)
-		return (supposedlen);
-	else
-		return (-1);
+	return (i);
 }
 
 int	ft_putnbr_fd(int n, int fd)
 {
-	int	i;
-	int	isprint;
-	int	save;
+	int		i;
+	char	*num;
+	int		intlen;
+	int		start;
+	int		ret;
 
-	isprint = 0;
-	save = n;
 	if (n == -2147483648)
-		return (write(fd, "-2147483648", 11));
-	else if (n < 0)
+        return (write(fd, "-2147483648", 11));
+	intlen = ft_putnbr_intlen(n);
+	start = 0;
+	num = malloc((intlen + 1) * sizeof(char));
+	num[intlen] = '\0';
+	if (!num)
+		return (-1);
+	if (n < 0)
 	{
-		isprint += write(fd, "-", 1);
+		num[0] = '-';
 		n = -n;
+		start++;
 	}
-	if (n < 10 && n > -1)
-		isprint += int_to_char(n, fd);
-	else
-	{
-		while (n > 0)
-		{
-			i = n % 10;
-			n = n / 10;
-			isprint += int_to_char(i, fd);
-		}
-	}
-	return (printverif(save, isprint));
+	while (intlen > start)
+    {
+        i = n % 10;
+        n = n / 10;
+        num[--intlen] = i + '0';
+    }
+	ret = write(fd, num, ft_strlen(num));
+	free(num);
+	return (ret);
 }
