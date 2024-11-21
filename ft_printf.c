@@ -6,7 +6,7 @@
 /*   By: ale-roux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 19:35:20 by ale-roux          #+#    #+#             */
-/*   Updated: 2022/11/15 17:26:54 by ale-roux         ###   ########.fr       */
+/*   Updated: 2024/11/21 02:03:05 by ale-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,9 @@ int	ft_printf(const char *main, ...)
 	int		i;
 	va_list	arg;
 	int		ret;
-	int		verif;
 
 	ret = 0;
 	i = 0;
-	verif = 0;
 	va_start(arg, main);
 	while (main[i])
 	{
