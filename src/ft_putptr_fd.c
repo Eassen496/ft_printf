@@ -6,7 +6,7 @@
 /*   By: ale-roux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:01:23 by ale-roux          #+#    #+#             */
-/*   Updated: 2022/11/15 14:34:54 by ale-roux         ###   ########.fr       */
+/*   Updated: 2024/11/21 01:58:05 by ale-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ int	ft_putptr_fd(unsigned long long nbr, int fd)
 	int		len;
 	char	*base;
 
-	len = putptr_fd_len(nbr);
+	if (nbr == 0)
+            return (write(fd, "(nil)", 5));
+        len = putptr_fd_len(nbr);
 	base = "0123456789abcdef";
 	result = malloc((len + 1) * sizeof(char));
 	if (!result)
